@@ -2,7 +2,9 @@
 
 \documentclass{article}
 \usepackage[margin=0.5in]{geometry}
-\usepackage{sectsty, xcolor, hyperref, enumitem, titlesec, titling, fontspec, multicol}
+\usepackage{sectsty, xcolor, hyperref, enumitem, titlesec, titling, fontspec, multicol, changepage}
+\usepackage{paracol}
+\usepackage{calc}
 
 \newfontfamily{\FAFR}{Font Awesome 5 Free Regular}
 \def\faEmail{{\FAFR \symbol{"F0E0}}} % Email
@@ -19,7 +21,7 @@
 \sectionfont{\color{accentcolor}}
 
 \titlespacing*{\section}{0pt}{5pt}{2pt}
-\titlespacing*{\subsection}{0pt}{3pt}{0pt}
+\titlespacing*{\subsection}{0pt}{0ex}{0pt}
 
 \titleformat{\section}
 {\bfseries\color{accentcolor}\large}{}{0em}{}
@@ -32,31 +34,25 @@
 \renewenvironment{itemize}{\olditemize[topsep=0em] \itemsep-.3em}{\endolditemize}
 
 \newcommand{\link}[1]{\href{https://#1}{#1}}
-\renewcommand{\entry}[2]{
-  \begin{flushleft}
-    \textit{#1}\qquad\textit{#2}
-  \end{flushleft}
+\newcommand{\entry}[2]{
+  \begin{multicols}{2}
+    \begin{flushleft}
+        \textit{#1}
+    \end{flushleft}
+    \begin{flushright}
+        \textit{#2}
+    \end{flushright}
+  \end{multicols}
 }
 
-\newenvironment{onecolentry}{
-    \begin{adjustwidth}{
-        0.2 cm + 0.00001 cm
-    }{
-        0.2 cm + 0.00001 cm
-    }
-}{
-    \end{adjustwidth}
-} % new environment for one column entries
-
 \newenvironment{twocolentry}[2][]{
-    \onecolentry
     \def\secondColumn{#2}
-    \setcolumnwidth{\fill, 4.5 cm}
+    \raggedright
+    \setcolumnwidth{\fill, 6cm}
     \begin{paracol}{2}
 }{
     \switchcolumn \raggedleft \secondColumn
     \end{paracol}
-    \endonecolentry
 } % new environment for two column entries
 
 \renewcommand{\maketitle}{
@@ -79,59 +75,94 @@
 
 \section{Experience}
 
-\subsection{Niantic Spatial (formerly Niantic Labs)}{May 2025 - Present}{Palo Alto, CA}
-  \entry{Senior Software Engineer}
-  \begin{itemize}
-    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    \item In vel nibh in dolor venenatis dictum.
-    \item Phasellus vitae malesuada nisi. Morbi hendrerit varius tellus, at hendrerit nisl accumsan sit amet
-  \end{itemize}
+\begin{twocolentry}{
+  \textit{Palo Alto, CA}
 
-\subsection{Niantic Labs}{April 2023 - April 2025}{Palo Alto, CA}
-  \entry{Senior Software Engineer}
-  \begin{itemize}
-    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    \item In vel nibh in dolor venenatis dictum.
-    \item Phasellus vitae malesuada nisi. Morbi hendrerit varius tellus, at hendrerit nisl accumsan sit amet
-  \end{itemize}
+  \textit{May 2025 - Present}
+}
+\subsection{Niantic Spatial / Niantic Labs}\hfill\\
 
-\subsection{8th Wall}{November 2020 - April 2023}{Palo Alto, CA}
-  \entry{Senior Software Engineer}
-  \begin{itemize}
-    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    \item In vel nibh in dolor venenatis dictum.
-    \item Phasellus vitae malesuada nisi. Morbi hendrerit varius tellus, at hendrerit nisl accumsan sit amet
-  \end{itemize}
-  \entry{Software Engineer}{November 2020 - April 2023}
-  \begin{itemize}
-    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    \item In vel nibh in dolor venenatis dictum.
-    \item Phasellus vitae malesuada nisi. Morbi hendrerit varius tellus, at hendrerit nisl accumsan sit amet
-  \end{itemize}
+\textit{Senior Software Engineer}
+\end{twocolentry}
 
-\subsection{Harvest Exchange}{June 2016 - October 2020}{Houston, TX}
-  \entry{Software Engineer}
-  \begin{itemize}
-    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    \item In vel nibh in dolor venenatis dictum.
-    \item Phasellus vitae malesuada nisi. Morbi hendrerit varius tellus, at hendrerit nisl accumsan sit amet
-  \end{itemize}
+\begin{itemize}
+  \item Built Niantic Studio, a web-based AR authoring tool featuring a dedicated game engine, XR
+  engine, and simulation support within a drag-and-drop UI. Delivered a best-in-class tool with a
+  robust feature set in record time, reducing users’ time-to-project-publish by 34% and increasing
+  Monthly Active Developers by 29.6%. Won “Best Creator & Authoring Tool” at AWE USA 2025.
+  \item Built Niantic Visual Positioning System (VPS) for the Web, enabling high-fidelity real-world
+  occlusion and meshing through a fast, stable hybrid tracking approach that delivers unmatched
+  authoring capabilities. Also supported the launch of the Niantic Geospatial Browser (GSB),
+  empowering users to author and manage location-based content remotely using Niantic’s mapping
+  data.
+  \item Developed an innovative Simulator within the 8th Wall Cloud Editor, enabling developers to
+  preview code changes in seconds (instead of minutes) without requiring a mobile device. Designed
+  automated testing sequences to validate diverse scenarios, significantly improving developer
+  velocity and productivity across the platform.
+  \item Expanded our Metaversal Deployment feature to enable running our product on new platforms
+  like the Apple Vision Pro, Meta Quest 2. won “Best Developer Tool” at AWE USA 2024
+  \item Designed, developed, and launched a new documentation system, providing a centralized
+  knowledge source for agentic training and driving significant website engagement. Achieved ~50K
+  monthly page views and improved resource accessibility for internal and external users.
+  \item Expanded website localization to support multiple regions and languages, enhancing global
+  accessibility and driving deeper market penetration across international audiences.
+\end{itemize}
 
-\subsection{Baylor College of Medicine - Human Genome Sequencing Center (HGSC)}{March 2012 - May 2016}{Houston, TX}
-  \entry{Software Engineer}
-  \begin{itemize}
-    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    \item In vel nibh in dolor venenatis dictum.
-    \item Phasellus vitae malesuada nisi. Morbi hendrerit varius tellus, at hendrerit nisl accumsan sit amet
-  \end{itemize}
+\begin{twocolentry}{
+  \textit{Palo Alto, CA} \\
+  \textit{April 2022 - April 2025} \\
+  \textit{November 2020 - April 2022}
+}
+\subsection{8th Wall}\hfill\\
+\textit{Senior Software Engineer} \\
+\textit{Software Engineer}
+\end{twocolentry}
+\begin{itemize}
+  \item Designed and implemented an integrated blog platform within the company website, driving ~7%
+  of total logged-out traffic (≈100K monthly impressions) through improved SEO, performance
+  optimization, and user experience enhancements.
+  \item Expanded our WebXR capability, culminate in project Metaversal Deployment which enable
+  development of our WebXR product to headmount devices and other platforms. This set the foundation
+  for 8th Wall to win the Best Developer Tool at AWE 2024.
+  \item Built a public profile system for our customer workspaces. Allow our customers to have more
+  venues to advertise their works, driving more engagement to our website. 
+  \item Improved our Cloud Editor by adding new features like code search and debug mode. Surfacing
+  more signals to developers working on our platform
+  \item Contributed to the strategic growth and successful acquisition of 8th Wall by Niantic by
+  utilizing cutting-edge technologies and optimizing cross-functional workflows, driving business
+  value and operational efficiency
+\end{itemize}
+
+\begin{twocolentry}{
+  \textit{Houston, TX} \\
+  \textit{June 2016 - October 2020} \\
+}
+\subsection{Harvest Exchange}\hfill\\
+\textit{Software Engineer}
+\end{twocolentry}
+\begin{itemize}
+  \item Rewrote and updated our web application from Ruby on Rail to React with Python stack, which
+  increased our SEO score and conversion rate by 20%
+  \item Redesigned and upgraded website to use responsive web interface with React
+\end{itemize}
+
+\begin{twocolentry}{
+  \textit{Houston, TX} \\
+  \textit{March 2012 - May 2016} \\
+}
+\subsection{Baylor College of Medicine - Human Genome Sequencing Center (HGSC)}\hfill\\
+\textit{Software Engineer}
+\end{twocolentry}
+\begin{itemize}
+  \item Wrote and maintained a suite of responsive reporting software for biometric data that monitor have millions of samples
+  \item Rewrote an old GWT web application using AngularJS and Java Restful Web Service which
+  Improved query speed for HGSC reports by more than 10 times
+\end{itemize}
 
 \section{Education}
-\subsection{University of Houston}{August 2008 - May 2011}
-\entry{Bachelor of Science in Computer Science}
-\begin{itemize}
-  \item ACM International Collegiate Programming Contest (ICPC) Team Member
-  \item 2008-2009 Dean's List
-\end{itemize}
+\subsection{University of Houston}
+\entry{Bachelor of Science in Computer Science}{August 2008 - May 2011}
+ACM International Collegiate Programming Contest (ICPC) Team Member, Dean's List
 
 \section{Skills}
 \begin{itemize}
